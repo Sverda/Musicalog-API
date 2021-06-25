@@ -22,12 +22,6 @@ namespace Musicalog.Infrastructure.Persistence
 
         public void Dispose()
         {
-
-        }
-
-        public int Execute(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<T> Get<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.Text)
@@ -96,9 +90,8 @@ namespace Musicalog.Infrastructure.Persistence
             return result;
         }
 
-        public T Update<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
+        public async Task Update(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
         {
-            T result;
             using IDbConnection db = new SqlConnection(_config.GetConnectionString(Connectionstring));
             try
             {
@@ -110,7 +103,7 @@ namespace Musicalog.Infrastructure.Persistence
                 using IDbTransaction transaction = db.BeginTransaction();
                 try
                 {
-                    result = db.Query<T>(sp, parms, commandType: commandType, transaction: transaction).FirstOrDefault();
+                    await db.ExecuteAsync(sp, parms, commandType: commandType, transaction: transaction);
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -130,8 +123,6 @@ namespace Musicalog.Infrastructure.Persistence
                     db.Close();
                 }
             }
-
-            return result;
         }
     }
 }

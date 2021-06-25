@@ -6,8 +6,12 @@ namespace Musicalog.Application.Common.Interfaces
 {
     public interface IAlbumRepository
     {
+        Task<Album> FindOne(int id);
+
         Task<IEnumerable<Album>> GetListOfAlbums(string albumTitle, string artistName);
 
         Task Add(Album album);
+
+        Task Update(int id, Album album);
     }
 }

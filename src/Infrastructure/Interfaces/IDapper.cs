@@ -12,15 +12,10 @@ namespace Musicalog.Infrastructure.Interfaces
 
         Task<IEnumerable<T>> GetAll<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
 
-        int Execute(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
+        Task<IEnumerable<TOne>> GetAllWithOneToMany<TOne, TMany>(string query, Action<TOne, TMany> setProperty);
 
         Task<T> Insert<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
 
-        T Update<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
-
-        Task<IEnumerable<TOne>> GetAllWithOneToMany<TOne, TMany>(
-            string query,
-            Action<TOne, TMany> setProperty
-        );
+        Task Update(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
     }
 }

@@ -48,8 +48,16 @@ namespace Musicalog.WebUI.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] AlbumDto value)
+        public async Task PutAsync(int id, [FromBody] UpdateAlbumDto value)
         {
+            var album = new Album
+            {
+                Title = value.Title,
+                ArtistId = value.ArtistId,
+                Stock = value.Stock,
+                Type = value.AlbumType.ParseFromString()
+            };
+            await _albumRepository.Update(id, album);
         }
 
         [HttpDelete("{id}")]
