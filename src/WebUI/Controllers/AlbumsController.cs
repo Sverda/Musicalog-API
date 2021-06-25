@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Musicalog.WebUI.Dto;
+using Musicalog.Application.Common.Interfaces;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Musicalog.WebUI.Controllers
 {
@@ -8,21 +11,25 @@ namespace Musicalog.WebUI.Controllers
     [ApiController]
     public class AlbumsController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<AlbumDto> Get()
+        private readonly IAlbumRepository _albumRepository;
+
+        public AlbumsController(IAlbumRepository albumRepository)
         {
-            return new[]
-            {
-                new AlbumDto(),
-                new AlbumDto(),
-                new AlbumDto()
-            };
+            _albumRepository = albumRepository;
         }
 
-        [HttpGet("{id}")]
-        public AlbumDto Get(int id)
+        [HttpGet]
+        public async Task<IEnumerable<AlbumDto>> GetAsync()
         {
-            return new AlbumDto();
+            var dbAlbums = await _albumRepository.GetListOfAlbums(null, null);
+            var dto = dbAlbums.Select(a => new AlbumDto
+            {
+                Title = a.Title, 
+                ArtistName = a.Artist?.Name,
+                AlbumType = a.Type.ToString(),
+                Stock = a.Stock
+            });
+            return dto;
         }
 
         [HttpPost]

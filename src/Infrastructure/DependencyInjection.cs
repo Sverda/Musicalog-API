@@ -2,6 +2,7 @@
 using Musicalog.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Musicalog.Infrastructure.Interfaces;
 
 namespace Musicalog.Infrastructure
 {
@@ -9,7 +10,8 @@ namespace Musicalog.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IRepository, Repository>();
+            services.AddTransient<IDapper, Persistence.Dapper>();
+            services.AddTransient<IAlbumRepository, AlbumRepository>();
 
             return services;
         }
