@@ -124,5 +124,40 @@ namespace Musicalog.Infrastructure.Persistence
                 }
             }
         }
+
+        public async Task Delete(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
+        {
+            using IDbConnection db = new SqlConnection(_config.GetConnectionString(Connectionstring));
+            try
+            {
+                if (db.State == ConnectionState.Closed)
+                {
+                    db.Open();
+                }
+
+                using IDbTransaction transaction = db.BeginTransaction();
+                try
+                {
+                    await db.ExecuteAsync(sp, parms, commandType: commandType, transaction: transaction);
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (db.State == ConnectionState.Open)
+                {
+                    db.Close();
+                }
+            }
+        }
     }
 }

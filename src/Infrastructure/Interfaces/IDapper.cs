@@ -17,5 +17,7 @@ namespace Musicalog.Infrastructure.Interfaces
         Task<T> Insert<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
 
         Task Update(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
+
+        Task Delete(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
     }
 }

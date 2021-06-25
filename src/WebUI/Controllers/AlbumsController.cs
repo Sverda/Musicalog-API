@@ -61,8 +61,9 @@ namespace Musicalog.WebUI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
+            await _albumRepository.Delete(id);
         }
     }
 }

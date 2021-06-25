@@ -13,5 +13,6 @@ namespace Musicalog.Application.Common.Interfaces
         Task Add(Album album);
 
         Task Update(int id, Album album);
+        Task Delete(int id);
     }
 }

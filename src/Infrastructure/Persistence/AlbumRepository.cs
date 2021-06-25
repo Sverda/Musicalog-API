@@ -54,5 +54,12 @@ namespace Musicalog.Infrastructure.Persistence
             var parms = new DynamicParameters(album);
             await _dapper.Update(query, parms, CommandType.Text);
         }
+
+        public async Task Delete(int id)
+        {
+            var query = @"DELETE dbo.Albums WHERE Id = @Id";
+            var parms = new DynamicParameters(new { Id = id });
+            await _dapper.Delete(query, parms, CommandType.Text);
+        }
     }
 }
