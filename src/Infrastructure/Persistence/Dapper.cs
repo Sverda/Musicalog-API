@@ -36,6 +36,21 @@ namespace Musicalog.Infrastructure.Persistence
             return (await db.QueryAsync<T>(sp, parms, commandType: commandType)).FirstOrDefault();
         }
 
+        public async Task<IEnumerable<TOne>> GetAllWithOneToMany<TOne, TMany>(
+            string query,
+            Action<TOne, TMany> setProperty
+        )
+        {
+            using IDbConnection db = new SqlConnection(_config.GetConnectionString(Connectionstring));
+            var result = await db.QueryAsync<TOne, TMany, TOne>(query, (one, many) =>
+            {
+                setProperty(one, many);
+                return one;
+            });
+
+            return result;
+        }
+
         public async Task<IEnumerable<T>> GetAll<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
         {
             using IDbConnection db = new SqlConnection(_config.GetConnectionString(Connectionstring));

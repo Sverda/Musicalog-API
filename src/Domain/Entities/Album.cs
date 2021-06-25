@@ -2,7 +2,7 @@
 
 namespace Musicalog.Domain.Entities
 {
-    public class Album
+    public sealed class Album : IEntity
     {
         public int Id { get; set; }
 

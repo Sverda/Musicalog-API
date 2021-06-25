@@ -2,7 +2,6 @@
 using Musicalog.Domain.Entities;
 using Musicalog.Infrastructure.Interfaces;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 
 namespace Musicalog.Infrastructure.Persistence
@@ -18,9 +17,13 @@ namespace Musicalog.Infrastructure.Persistence
 
         public async Task<IEnumerable<Album>> GetListOfAlbums(string albumTitle, string artistName)
         {
-            var query = "SELECT * FROM Albums";
+            var query = @"SELECT *
+                          FROM Albums al
+                          INNER JOIN Artists ar ON al.ArtistId = ar.Id";
 
-            return await _dapper.GetAll<Album>(query, null, CommandType.Text);
+            return await _dapper.GetAllWithOneToMany<Album, Artist>(
+                query, 
+                (album, artist) => album.Artist = artist);
         }
     }
 }

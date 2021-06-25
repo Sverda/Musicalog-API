@@ -17,5 +17,10 @@ namespace Musicalog.Infrastructure.Interfaces
         T Insert<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
 
         T Update<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure);
+
+        Task<IEnumerable<TOne>> GetAllWithOneToMany<TOne, TMany>(
+            string query,
+            Action<TOne, TMany> setProperty
+        );
     }
 }
