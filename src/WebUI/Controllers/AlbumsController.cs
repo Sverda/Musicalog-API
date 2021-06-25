@@ -4,6 +4,8 @@ using Musicalog.WebUI.Dto;
 using Musicalog.Application.Common.Interfaces;
 using System.Threading.Tasks;
 using System.Linq;
+using Musicalog.Domain.Entities;
+using Musicalog.Application.Common.Mappings;
 
 namespace Musicalog.WebUI.Controllers
 {
@@ -33,8 +35,16 @@ namespace Musicalog.WebUI.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] AlbumDto value)
+        public async Task PostAsync([FromBody] CreateAlbumDto value)
         {
+            var album = new Album
+            {
+                Title = value.Title,
+                ArtistId = value.ArtistId,
+                Stock = value.Stock,
+                Type = value.AlbumType.ParseFromString()
+            };
+            await _albumRepository.Add(album);
         }
 
         [HttpPut("{id}")]

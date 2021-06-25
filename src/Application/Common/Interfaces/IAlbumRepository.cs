@@ -7,5 +7,7 @@ namespace Musicalog.Application.Common.Interfaces
     public interface IAlbumRepository
     {
         Task<IEnumerable<Album>> GetListOfAlbums(string albumTitle, string artistName);
+
+        Task Add(Album album);
     }
 }

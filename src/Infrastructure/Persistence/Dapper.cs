@@ -57,7 +57,7 @@ namespace Musicalog.Infrastructure.Persistence
             return await db.QueryAsync<T>(sp, parms, commandType: commandType);
         }
 
-        public T Insert<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
+        public async Task<T> Insert<T>(string sp, DynamicParameters parms, CommandType commandType = CommandType.StoredProcedure)
         {
             T result;
             using IDbConnection db = new SqlConnection(_config.GetConnectionString(Connectionstring));
@@ -71,7 +71,8 @@ namespace Musicalog.Infrastructure.Persistence
                 using IDbTransaction transaction = db.BeginTransaction();
                 try
                 {
-                    result = db.Query<T>(sp, parms, commandType: commandType, transaction: transaction).FirstOrDefault();
+                    result = (await db.QueryAsync<T>(sp, parms, commandType: commandType, transaction: transaction))
+                        .FirstOrDefault();
                     transaction.Commit();
                 }
                 catch (Exception ex)
