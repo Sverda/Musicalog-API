@@ -1,9 +1,9 @@
-﻿using Application.Common.Interfaces;
-using Infrastructure.Persistence;
+﻿using Musicalog.Application.Common.Interfaces;
+using Musicalog.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure
+namespace Musicalog.Infrastructure
 {
     public static class DependencyInjection
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using WebUI.Dto;
+using Musicalog.WebUI.Dto;
 
-namespace WebUI.Controllers
+namespace Musicalog.WebUI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

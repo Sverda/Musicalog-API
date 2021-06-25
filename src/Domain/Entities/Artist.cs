@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities
+﻿namespace Musicalog.Domain.Entities
 {
     public class Artist
     {

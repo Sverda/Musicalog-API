@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Musicalog.WebUI</RootNamespace>
+    <AssemblyName>Musicalog.WebUI</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

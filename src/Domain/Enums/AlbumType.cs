@@ -1,4 +1,4 @@
-﻿namespace Domain.Enums
+﻿namespace Musicalog.Domain.Enums
 {
     public enum AlbumType
     {

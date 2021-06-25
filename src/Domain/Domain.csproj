@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Musicalog.Domain</RootNamespace>
+    <AssemblyName>Musicalog.Domain</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

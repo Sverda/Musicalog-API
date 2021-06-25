@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.Common.Interfaces
+namespace Musicalog.Application.Common.Interfaces
 {
     public interface IRepository
     {

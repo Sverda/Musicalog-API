@@ -1,4 +1,4 @@
-﻿namespace WebUI.Dto
+﻿namespace Musicalog.WebUI.Dto
 {
     public class AlbumDto
     {
