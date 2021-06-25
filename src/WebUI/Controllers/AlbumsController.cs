@@ -26,6 +26,7 @@ namespace Musicalog.WebUI.Controllers
             var dbAlbums = await _albumRepository.GetListOfAlbums(null, null);
             var dto = dbAlbums.Select(a => new AlbumDto
             {
+                Id = a.Id,
                 Title = a.Title, 
                 ArtistName = a.Artist?.Name,
                 AlbumType = a.Type.ToString(),
